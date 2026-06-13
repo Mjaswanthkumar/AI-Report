@@ -2,7 +2,7 @@ name: Daily AI Intelligence Report
 
 on:
   schedule:
-    - cron: "30 0 * * *"  # 6:00 AM IST (12:30 AM UTC)
+    - cron: "40 18 * * *"  # 12:10 AM IST (6:40 PM UTC previous day)
   workflow_dispatch:  # allows manual run button
 
 jobs:
