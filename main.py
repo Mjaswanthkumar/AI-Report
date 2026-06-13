@@ -21,8 +21,7 @@ def send_telegram_message(text):
     for msg in messages:
         payload = {
             "chat_id": chat_id,
-            "text": msg,
-            "parse_mode": "Markdown"
+            "text": msg
         }
         response = requests.post(url, json=payload)
 
