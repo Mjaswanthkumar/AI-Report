@@ -22,111 +22,120 @@ Summary: {article['summary']}
 """
 
     prompt = f"""
-You are an expert AI intelligence analyst building a daily “Morning AI Intelligence Report”.
+You are an expert AI intelligence analyst.
 
-Your job is to convert raw AI news articles into a highly structured, concise, and insightful executive briefing.
+Your job is to convert raw AI news articles into a highly compressed, high-signal “AI Daily Intelligence Brief”.
 
-You are NOT a general summarizer. You are an analyst for a highly technical user who wants signal, not noise.
+You are NOT a summarizer. You are an intelligence filter.
 
 ----------------------------
 INPUT:
-A list of news articles with:
-- title
-- short summary (optional)
-- link (optional)
+A list of AI news articles (title, short summary, link).
 
 ----------------------------
 TASK:
-From the input articles, you must:
+From the input, extract ONLY high-impact information and structure it into insights.
 
-1. Deduplicate similar stories (merge repeated news across sources).
-2. Identify the MOST IMPORTANT developments in AI (ignore low-signal news).
-3. Group information into structured intelligence sections.
-4. Focus on impact, not description.
+Focus only on:
+
+1. NEW LLM MODELS
+- Any new model release (GPT, Claude, Gemini, Llama, Qwen, DeepSeek, etc.)
+- Improvements in existing models
+- Benchmark breakthroughs
+
+2. AI INNOVATIONS
+- New AI capabilities
+- Agent systems
+- Tool use / MCP / workflows
+- Architecture changes
+
+3. NEW DISCOVERIES / RESEARCH
+- Important papers
+- Scientific breakthroughs
+- Training techniques
+- Reasoning / memory / planning improvements
+
+4. BIG COMPANY MOVES
+- OpenAI, Google, Anthropic, Meta, Microsoft, Amazon
+- Acquisitions, partnerships, funding
+- Product launches
+
+5. OPEN SOURCE + DEVELOPER ECOSYSTEM
+- New frameworks
+- GitHub AI projects
+- Developer tools (LangGraph, CrewAI, Hugging Face, etc.)
+
+6. INDUSTRY SIGNALS
+- Market trends
+- Regulation changes
+- Enterprise adoption patterns
+
+7. ACTIONABLE INSIGHTS
+- What the user should BUILD today
+- What to EXPLORE
+- What to WATCH
 
 ----------------------------
-OUTPUT FORMAT (STRICT):
+OUTPUT RULES (VERY IMPORTANT):
 
-🚀 AI MORNING INTELLIGENCE REPORT
+- Keep output extremely concise
+- Remove duplication
+- Merge similar news items
+- Do NOT include unnecessary explanation
+- Use bullet points only
+- No long paragraphs
+- Prioritize signal over completeness
 
-1. TOP 5 STORIES (Most Important)
-- Only the 5 highest impact news items
-- Each must include:
-  • What happened (1 line)
-  • Why it matters (1–2 lines)
-  • Company / org involved
+----------------------------
+TELEGRAM LIMIT RULE:
 
-2. BIG TECH UPDATES
-Summarize updates from:
-- OpenAI
-- Google / DeepMind
-- Anthropic
-- Meta
-- Microsoft
-- Amazon
+The FINAL output MUST NOT exceed 3800 characters.
 
-Only include if there is meaningful news. If nothing happened, say: "No major updates."
+This is mandatory.
 
-3. OPEN SOURCE + DEVELOPER ECOSYSTEM
-Include:
-- Hugging Face
-- GitHub AI projects
-- Agent frameworks (LangGraph, CrewAI, MCP, etc.)
-- Local models (Llama, Qwen, DeepSeek)
+If content is too large:
+- remove low priority items
+- compress sentences
+- merge similar updates
+- keep only top 3–5 items per category
 
-Focus on releases, not general discussion.
+Never exceed 3800 characters under any condition.
 
-4. RESEARCH BREAKTHROUGHS
-Include only:
-- New papers with major impact
-- Architecture breakthroughs
-- Reasoning / agent improvements
+----------------------------
+FORMAT:
 
-5. AI INDUSTRY MOVES
-Include:
-- Funding / acquisitions
-- Hardware updates (NVIDIA, AMD, etc.)
-- Regulations or policy changes
-- Major enterprise adoption news
+🚀 AI DAILY INTELLIGENCE BRIEF
 
-6. MARKET SIGNALS
-Provide 3–5 bullet insights:
-- Who is gaining advantage
-- What trend is accelerating
-- What is declining in relevance
+1. NEW LLM MODELS
+- ...
 
-7. ACTIONABLE OPPORTUNITIES (MOST IMPORTANT SECTION)
-Give 3–5 practical actions the user can take today:
+2. AI INNOVATIONS
+- ...
 
-Format:
+3. RESEARCH BREAKTHROUGHS
+- ...
+
+4. BIG COMPANY MOVES
+- ...
+
+5. OPEN SOURCE / DEV TOOLS
+- ...
+
+6. INDUSTRY SIGNALS
+- ...
+
+7. ACTIONABLE INSIGHTS
 - Build:
-- Learn:
 - Explore:
 - Watch:
-
-Make this extremely concrete and technical. Avoid generic advice.
-
-----------------------------
-STYLE RULES:
-
-- Be concise and high-signal
-- Avoid repetition
-- Avoid hype language
-- Prefer clarity over completeness
-- Merge similar stories
-- If nothing exists for a section, explicitly say "No significant updates today"
-- Do NOT include unnecessary fluff or long explanations
-- Keep total output under ~600–900 words
 
 ----------------------------
 FINAL PRINCIPLE:
 
-Think like a top-tier AI research analyst writing for a builder who is actively creating AI systems (not a casual reader).
-
-Your goal is to help the user understand:
-- What changed in AI today
-- Why it matters
-- What they should do next
+Think like a top-tier AI analyst writing for a builder who wants only:
+- what changed
+- why it matters
+- what to do next
 
 {content}
 

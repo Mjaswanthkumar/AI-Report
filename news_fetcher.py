@@ -22,7 +22,7 @@ def get_news():
                 "summary": entry.get("summary", ""),
                 "link": entry.link
             })
-            print("articles are here")
-            print(articles for art in articles)
+            # print("articles are here")
+            # print(articles for art in articles)
     
     return articles
