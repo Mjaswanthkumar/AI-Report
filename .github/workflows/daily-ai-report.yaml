@@ -1,30 +1,43 @@
-name: Daily AI Intelligence Report
+name: Daily AI Briefing to WhatsApp
 
 on:
+  push:
+    branches:
+      - feature/whatsapp-integration
+
   schedule:
-    - cron: "10 19 * * *"  # 6:00 AM IST (12:30 AM UTC)
-  workflow_dispatch:  # allows manual run button
+    # Every day at 10:20 PM IST (16:50 UTC)
+    - cron: '50 16 * * *'
+
+  workflow_dispatch:
 
 jobs:
-  run-agent:
+  run-script:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
+          python-version: '3.10'
+          cache: 'pip'
 
-      - name: Install dependencies
+      - name: Install Dependencies
         run: |
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run AI News Agent
+      - name: Run AI Briefing Script
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: python main.py
+
+          TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
+          TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
+          TWILIO_FROM_NUMBER: ${{ secrets.TWILIO_FROM_NUMBER }}
+          TO_PHONE_NUMBER: ${{ secrets.TO_PHONE_NUMBER }}
+
+        run: |
+          python main.py
