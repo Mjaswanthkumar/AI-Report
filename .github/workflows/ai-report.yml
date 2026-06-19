@@ -1,9 +1,14 @@
 name: Daily AI Briefing to WhatsApp
 
 on:
+  push:
+    branches:
+      - whatsappfeature
+
   schedule:
-    # Run every day at 10:10 PM IST (16:40 UTC)
+    # Runs every day at 10:10 PM IST (16:40 UTC)
     - cron: '40 16 * * *'
+
   workflow_dispatch:
 
 jobs:
@@ -28,8 +33,11 @@ jobs:
       - name: Run AI Briefing Script
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+
           TWILIO_ACCOUNT_SID: ${{ secrets.TWILIO_ACCOUNT_SID }}
           TWILIO_AUTH_TOKEN: ${{ secrets.TWILIO_AUTH_TOKEN }}
           TWILIO_FROM_NUMBER: ${{ secrets.TWILIO_FROM_NUMBER }}
           TO_PHONE_NUMBER: ${{ secrets.TO_PHONE_NUMBER }}
-        run: python main.py
+
+        run: |
+          python main.py
