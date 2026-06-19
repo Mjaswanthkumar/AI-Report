@@ -87,7 +87,7 @@ OUTPUT RULES (VERY IMPORTANT):
 - Prioritize signal over completeness
 
 ----------------------------
-TELEGRAM LIMIT RULE:
+WHATSAPP LIMIT RULE:
 
 The FINAL output MUST NOT exceed 3800 characters.
 
@@ -99,7 +99,7 @@ If content is too large:
 - merge similar updates
 - keep only top 3–5 items per category
 
-Never exceed 3800 characters under any condition.
+Never exceed 3800 characters under any condition. Keep bolding format as standard markdown *text* since WhatsApp supports it.
 
 ----------------------------
 FORMAT:

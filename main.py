@@ -7,26 +7,34 @@ def split_message(text, max_len=2000):
     return [text[i:i+max_len] for i in range(0, len(text), max_len)]
 
 
-def send_telegram_message(text):
-    token = os.getenv("TELEGRAM_BOT_TOKEN")
-    chat_id = os.getenv("TELEGRAM_CHAT_ID")
+def send_whatsapp_message(text):
+    account_sid = os.getenv("TWILIO_ACCOUNT_SID")
+    auth_token = os.getenv("TWILIO_AUTH_TOKEN")
+    from_number = os.getenv("TWILIO_FROM_NUMBER")
+    to_number = os.getenv("TO_PHONE_NUMBER")
 
-    # print("token:", token)
-    # print("chat_id:", chat_id)
+    if not all([account_sid, auth_token, from_number, to_number]):
+        print("Error: Missing WhatsApp/Twilio environment variables.")
+        return
 
-    url = f"https://api.telegram.org/bot{token}/sendMessage"
+    # Check for placeholder values
+    if "your_twilio_account_sid_here" in account_sid or "your_twilio_auth_token_here" in auth_token:
+        print("Warning: Twilio credentials are still set to placeholders in .env.")
+        return
 
-    messages = split_message(text)
+    url = f"https://api.twilio.com/2010-04-01/Accounts/{account_sid}/Messages.json"
+
+    messages = split_message(text, max_len=1500)  # Twilio recommends sending within reasonable sizes
 
     for msg in messages:
         payload = {
-            "chat_id": chat_id,
-            "text": msg
+            "From": from_number,
+            "To": to_number,
+            "Body": msg
         }
-        response = requests.post(url, json=payload)
-
-    print("status:", response.status_code)
-    print("response:", response.text)
+        response = requests.post(url, data=payload, auth=(account_sid, auth_token))
+        print("status:", response.status_code)
+        print("response:", response.text)
 
 
 def main():
@@ -34,7 +42,7 @@ def main():
     report = summarize(articles)
 
     print(report)  # still useful for GitHub logs
-    send_telegram_message(report)
+    send_whatsapp_message(report)
 
 
 if __name__ == "__main__":
