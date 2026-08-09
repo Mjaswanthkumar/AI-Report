@@ -12,9 +12,34 @@ def send_telegram_message(text):
     token = os.getenv("TELEGRAM_BOT_TOKEN")
     chat_id = os.getenv("TELEGRAM_CHAT_ID")
 
-    url = f"https://api.telegram.org/bot{token}/sendMessage"
+    print("Token exists:", bool(token))
+    print("Token length:", len(token) if token else 0)
+    print("Chat ID exists:", bool(chat_id))
+    print("Chat ID:", chat_id)
+
+    if not token:
+        raise ValueError("TELEGRAM_BOT_TOKEN is not set")
+
+    if not chat_id:
+        raise ValueError("TELEGRAM_CHAT_ID is not set")
+
+    url = f"https://api.telegram.org/bot{token}/getMe"
+
+    print("Testing Telegram bot token...")
+
+    response = requests.get(url)
+
+    print("Telegram status:", response.status_code)
+    print("Telegram response:", response.text)
+
+    if response.status_code != 200:
+        raise RuntimeError(
+            f"Telegram token test failed: {response.status_code} {response.text}"
+        )
 
     messages = split_message(text)
+
+    url = f"https://api.telegram.org/bot{token}/sendMessage"
 
     for msg in messages:
         payload = {
@@ -24,8 +49,11 @@ def send_telegram_message(text):
 
         response = requests.post(url, json=payload)
 
-        print("status:", response.status_code)
-        print("response:", response.text)
+        print("Send status:", response.status_code)
+        print("Send response:", response.text)
+
+        response.raise_for_status()
+
 
 
 
