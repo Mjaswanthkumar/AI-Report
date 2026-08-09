@@ -60,10 +60,10 @@ def send_telegram_message(text):
 
 def main():
     articles = get_news()
-    # report = summarize(articles)
+    report = summarize(articles)
 
-    # print(report)  # still useful for GitHub logs
-    send_telegram_message("Hi")
+    print(report)  # still useful for GitHub logs
+    send_telegram_message(report)
 
 
 if __name__ == "__main__":
